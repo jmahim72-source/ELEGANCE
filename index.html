@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ELEGANCE — Silent Editorial & Quiet Luxury</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,aspect-ratio"></script>
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  
+  <!-- Custom Design System Styles -->
+  <link rel="stylesheet" href="style.css"/>
+
+  <!-- GSAP & ScrollTrigger CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  
+  <!-- Tailwind Configuration matching DESIGN.md -->
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface": "#F5F3EF",
+            "on-surface": "#161513",
+            "primary": "#161513",
+            "primary-container": "#2B3A4A",
+            "secondary": "#5E5E5C",
+            "surface-container": "#F2EDE9",
+            "surface-container-high": "#ECE7E3",
+            "surface-container-highest": "#E6E2DE"
+          },
+          fontFamily: {
+            "display": ["'Bodoni Moda'", "serif"],
+            "body": ["'Inter'", "sans-serif"]
+          },
+          spacing: {
+            "section-padding": "160px",
+            "gutter": "48px",
+            "margin-mobile": "24px"
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-on-surface selection:text-surface">
+
+  <!-- Persistent Top Navigation -->
+  <nav id="top-nav" class="fixed top-0 w-full z-50 transition-all duration-500 bg-transparent h-20 flex items-center">
+    <div class="flex justify-between items-center w-full px-6 md:px-12 max-w-[1440px] mx-auto">
+      
+      <!-- Brand Logo -->
+      <a href="#home" onclick="navigateTo('home'); return false;" class="font-display text-2xl md:text-3xl font-bold tracking-tighter text-on-surface">
+        ELEGANCE
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <div class="hidden md:flex items-center gap-10">
+        <a href="#shop" onclick="navigateTo('shop'); return false;" class="nav-link text-nav-label text-on-surface underline-hover" data-view="shop">SHOP</a>
+        <a href="#shop" onclick="navigateTo('shop'); return false;" class="nav-link text-nav-label text-secondary underline-hover" data-view="collections">COLLECTIONS</a>
+        <a href="#journal" onclick="navigateTo('journal'); return false;" class="nav-link text-nav-label text-secondary underline-hover" data-view="journal">JOURNAL</a>
+        <a href="#about" onclick="navigateTo('about'); return false;" class="nav-link text-nav-label text-secondary underline-hover" data-view="about">ABOUT</a>
+      </div>
+
+      <!-- Action Icons -->
+      <div class="flex items-center gap-6">
+        <!-- Currency Selector -->
+        <button onclick="toggleCurrency()" id="currency-btn" class="hidden sm:block text-xs font-semibold tracking-widest text-secondary hover:text-on-surface transition">
+          USD $
+        </button>
+        <!-- Search Trigger -->
+        <button onclick="openSearchModal()" class="material-symbols-outlined text-on-surface text-xl hover:opacity-70 transition">
+          search
+        </button>
+        <!-- Wishlist Badge -->
+        <button onclick="navigateTo('shop'); showToast('Showing Wishlist Items');" class="material-symbols-outlined text-on-surface text-xl relative hover:opacity-70 transition">
+          favorite
+          <span id="wishlist-badge" class="absolute -top-2 -right-2 bg-primary-container text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold hidden">0</span>
+        </button>
+        <!-- Bag Drawer Trigger -->
+        <button onclick="openCartDrawer()" class="material-symbols-outlined text-on-surface text-xl relative hover:opacity-70 transition">
+          shopping_bag
+          <span id="cart-badge" class="absolute -top-2 -right-2 bg-on-surface text-surface text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">3</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- ================= VIEW 1: HOMEPAGE ================= -->
+  <main id="home-view" class="view-section active">
+    
+    <!-- 1. Full-Bleed Hero -->
+    <section class="relative h-screen w-full overflow-hidden flex items-center justify-center">
+      <div class="absolute inset-0 bg-cover bg-center transition-transform duration-1000 scale-105 hero-bg-img"
+           style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCTOp7on7YUMAwoZCiuURKgJP-BNPpbiiVDBOgZXjBnblYmDwzJ-1Oh9_AuX4IljsLIy-7xmxBAIirdvXCx8CyVrdmjJ42Ap1dqBCWpCjgl-BwO-kR-ympZgvejUn9QXCygZFA5DdZchObFIvCIEGCWFGmbm1MDC4evOOlYGnMK5Vk4H3a9SurgKQy3OMvfefHcqaqr_Wc-1nL8dbyCE_DN0wBJ4PO3KEiOq_6Lr90nk_l7u66uJqqy')">
+      </div>
+      <div class="absolute inset-0 bg-black/10"></div>
+      <div class="relative z-10 text-center px-6 max-w-4xl">
+        <span class="text-nav-label text-surface tracking-[0.3em] uppercase mb-4 block animate-fade-in opacity-90">Autumn / Winter 2026</span>
+        <h1 class="text-display-xl text-surface mb-8 tracking-tighter shadow-sm font-display">THE AUTUMN EDIT</h1>
+        <a href="#shop" onclick="navigateTo('shop'); return false;" class="btn-outline border-white text-white hover:bg-white hover:text-on-surface transition-all duration-500">
+          Shop the Collection →
+        </a>
+      </div>
+    </section>
+
+    <!-- 2. Marquee Ticker -->
+    <section class="bg-surface py-4 overflow-hidden border-y border-on-surface/10">
+      <div class="animate-marquee whitespace-nowrap flex">
+        <span class="text-caption text-secondary tracking-[0.25em] px-8">FREE SHIPPING OVER $200 — NEW ARRIVALS WEEKLY — MADE RESPONSIBLY IN MILAN — SILENT EDITORIAL EST. 2026 — </span>
+        <span class="text-caption text-secondary tracking-[0.25em] px-8">FREE SHIPPING OVER $200 — NEW ARRIVALS WEEKLY — MADE RESPONSIBLY IN MILAN — SILENT EDITORIAL EST. 2026 — </span>
+      </div>
+    </section>
+
+    <!-- 3. Shop By Category (Asymmetric Grid) -->
+    <section class="py-24 md:py-36 px-6 md:px-12 max-w-[1440px] mx-auto reveal-on-scroll">
+      <div class="mb-12 flex justify-between items-end">
+        <div>
+          <span class="text-caption text-secondary block mb-2">Curated Categories</span>
+          <h2 class="text-headline-md uppercase font-display">Shop By Category</h2>
+        </div>
+        <a href="#shop" onclick="navigateTo('shop'); return false;" class="text-nav-label underline-hover">Explore All →</a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+        <!-- Large Tile (Outerwear) -->
+        <div onclick="navigateTo('shop')" class="md:col-span-7 h-[650px] relative group cursor-pointer img-hover-container">
+          <img class="w-full h-full object-cover main-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfgmzaDfxT6ZD5Ddc_Zo8hwSunMVkGt52foPHu__CykbTeBlWs5HTDTCk8hYWquI_8VFeNHHjRs6pGPUdLb51h0lGvz_eXRsbQS692QIXSoAeNhXAUJPtdl42bIh4qsPXp1Ivt1AHvL6pmVSzFidLI4eBIm0jM1ie5d8y6pM47YFDn-_qirpJ4SUulE8K2hgB22wipm0_Ypqq17iDAsN50D73BLmgzzMs6pbS_l3Uy0_mG6Nh3VL6h" alt="Outerwear"/>
+          <div class="absolute bottom-8 left-8 z-10">
+            <span class="text-nav-label text-surface bg-on-surface/40 backdrop-blur-md px-6 py-3 uppercase tracking-widest border border-white/20">
+              OUTERWEAR (14)
+            </span>
+          </div>
+        </div>
+        <!-- Stacked Tiles (Knitwear & Accessories) -->
+        <div class="md:col-span-5 flex flex-col gap-8">
+          <div onclick="navigateTo('shop')" class="h-[309px] relative group cursor-pointer img-hover-container">
+            <img class="w-full h-full object-cover main-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnD_YuFKPakN4P25pNG4rMjSkP2pCVzi9V-jNHyicXgDrIb7zCYg8-VEshmp7isONTiEFRuKcYEa25HQNxTfNEGtwiMt7O5eRHhnGE10zKnCeD3v5hcDJJ74-8_5kJWbAwQHpTEPoceBPnUEqz1Ockjgz7osOlUCS8mnrsJ4WLak3LuGHsM2ttMEQ3mtZocM_XORdmmv2l3XGCNBHzWWDASqssF8qPrTWo9qPVoE9Hb0hG5rY_1-xT" alt="Knitwear"/>
+            <div class="absolute bottom-6 left-6 z-10">
+              <span class="text-nav-label text-surface bg-on-surface/40 backdrop-blur-md px-5 py-2.5 uppercase tracking-widest border border-white/20">
+                KNITWEAR (18)
+              </span>
+            </div>
+          </div>
+          <div onclick="navigateTo('shop')" class="h-[309px] relative group cursor-pointer img-hover-container">
+            <img class="w-full h-full object-cover main-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTZT-UEZGcYu9jM_R9zRYCyiHjCEwYd2TuTeInIsrc59ayE7ZC65zn63PUbOrj44Z6uIlWpQfwOKQwwaShSs2Fr-Fa5AQDIYVdmpMRMc0XatFD2DwRt_cIh3gzCwpqei8Jv5OCdCZYMSNUg0WILRnulTREAYSyBMUfIAex4i6JwKxogWzgcSEy9gmRLXF5uy9hu2YcMI5Ao9Nolt-WvqNf0cYJLSCPtEM6RuYsu1vx8x4IWxi6iOA1" alt="Accessories"/>
+            <div class="absolute bottom-6 left-6 z-10">
+              <span class="text-nav-label text-surface bg-on-surface/40 backdrop-blur-md px-5 py-2.5 uppercase tracking-widest border border-white/20">
+                ACCESSORIES (10)
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Featured Product Horizontal Carousel -->
+    <section class="py-16 pb-28 reveal-on-scroll">
+      <div class="px-6 md:px-12 max-w-[1440px] mx-auto mb-10 flex justify-between items-end">
+        <div>
+          <span class="text-caption text-secondary block mb-2">New Arrivals</span>
+          <h2 class="text-headline-md uppercase font-display">The Autumn Edit Highlights</h2>
+        </div>
+        <a href="#shop" onclick="navigateTo('shop'); return false;" class="text-nav-label underline-hover">View All Arrivals →</a>
+      </div>
+
+      <div class="flex overflow-x-auto gap-8 px-6 md:px-12 hide-scrollbar snap-x cursor-grab" id="home-product-slider">
+        <!-- Card 1 -->
+        <div class="min-w-[280px] md:min-w-[360px] snap-start group cursor-pointer" onclick="openPDP('Structured Wool Coat', 1450, 'https://lh3.googleusercontent.com/aida-public/AB6AXuCTOp7on7YUMAwoZCiuURKgJP-BNPpbiiVDBOgZXjBnblYmDwzJ-1Oh9_AuX4IljsLIy-7xmxBAIirdvXCx8CyVrdmjJ42Ap1dqBCWpCjgl-BwO-kR-ympZgvejUn9QXCygZFA5DdZchObFIvCIEGCWFGmbm1MDC4evOOlYGnMK5Vk4H3a9SurgKQy3OMvfefHcqaqr_Wc-1nL8dbyCE_DN0wBJ4PO3KEiOq_6Lr90nk_l7u66uJqqy')">
+          <div class="aspect-[3/4] img-hover-container mb-4 relative">
+            <img class="w-full h-full object-cover main-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCma9_fF-VWN504IwySVEeHvK2ODXdEQR4XB6r_FGyM_sU77aXb8MmLSMT16_GSuvQfVDIACR08u9MIS82MiesE_0MS7KMr3VLvtXRfx1izPR9p9E_s69Ob_LbivOMYToLZRo147REd_5e79ih6b2EDO8LvLI3paNw3tr_4XjSFWaNMjjm0OTs4EnOiTAKxMvjuCk-kpO2iy4sna8qUdDpCOcaRikOcSwLNuaUYNJSpbnInx0zoltM6" alt="Structured Wool Blazer"/>
+            <button onclick="event.stopPropagation(); toggleWishlist(this, 'Structured Wool Blazer')" class="absolute top-4 right-4 material-symbols-outlined text-white text-lg bg-black/20 backdrop-blur-md p-2 hover:bg-black/60 transition">favorite_border</button>
+          </div>
+          <p class="text-caption text-secondary mb-1">OUTERWEAR</p>
+          <p class="text-body-sm font-semibold uppercase mb-1">Structured Wool Blazer</p>
+          <p class="text-body-sm font-bold">$590.00</p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="min-w-[280px] md:min-w-[360px] snap-start group cursor-pointer" onclick="openPDP('Oversized Cashmere Knit', 425, 'https://lh3.googleusercontent.com/aida-public/AB6AXuDf93ONJ38KtqRGoWmHpyM8gUYQzLCZwNEsxsk1LN_Pv2W0g8hKIBnEyK1MB6YcV6x9Iny-vhFyzSNlUo0jsIMR92j6ZWxgbt-XTO4jw5mms7BfMGnjG1pqW0KvHYW2QYvr97hAIhuhgdtmCFsMo98qCKb-zbJ_qRvaRlLLlCJxKqimy1EZzEXMn730i6rvyrYJHdBHTwESm7Rq0t-I6npjNcLYU2kLAZhehMzBQQt6yIKKPBPP2Lm5')">
+          <div class="aspect-[3/4] img-hover-container mb-4 relative">
+            <img class="w-full h-full object-cover main-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDf93ONJ38KtqRGoWmHpyM8gUYQzLCZwNEsxsk1LN_Pv2W0g8hKIBnEyK1MB6YcV6x9Iny-vhFyzSNlUo0jsIMR92j6ZWxgbt-XTO4jw5mms7BfMGnjG1pqW0KvHYW2QYvr97hAIhuhgdtmCFsMo98qCKb-zbJ_qRvaRlLLlCJxKqimy1EZzEXMn730i6rvyrYJHdBHTwESm7Rq0t-I6npjNcLYU2kLAZhehMzBQQt6yIKKPBPP2Lm5" alt="Oversized Cashmere Knit"/>
+            <button onclick="event.stopPropagation(); toggleWishlist(this, 'Oversized Cashmere Knit')" class="absolute top-4 right-4 material-symbols-outlined text-white text-lg bg-black/20 backdrop-blur-md p-2 hover:bg-black/60 transition">favorite_border</button>
+          </div>
+          <p class="text-caption text-secondary mb-1">KNITWEAR</p>
+          <p class="text-body-sm font-semibold uppercase mb-1">Oversized Cashmere Knit</p>
+          <p class="text-body-sm font-bold">$425.00</p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="min-w-[280px] md:min-w-[360px] snap-start group cursor-pointer" onclick="openPDP('Wide-Leg Wool Trousers', 320, 'https://lh3.googleusercontent.com/aida-public/AB6AXuB-1_JE6-8HK5Ke3BGP_AOOHggsgrYMVZL1tG-eXI9qaZgC2h7sLmdzn-H1Ia3aVx-HLrEE5L5EHmVPH7ed_qhiJs-wHaZMXJP3Id3X3ILLJlZibWIXGRSzVLdw3hbMFs8nofxVIODIf1GKAiGDEuKBkzeBsFftDZOJNz9AKHAUvX-DmGYx9mCls91sbKzBgf5aKR9EsmOHGVR212jOZR2SIVtjwQMOnR4gB8cv5rUN7iL6eGe1mPfR')">
+          <div class="aspect-[3/4] img-hover-container mb-4 relative">
+            <img class="w-full h-full object-cover main-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-1_JE6-8HK5Ke3BGP_AOOHggsgrYMVZL1tG-eXI9qaZgC2h7sLmdzn-H1Ia3aVx-HLrEE5L5EHmVPH7ed_qhiJs-wHaZMXJP3Id3X3ILLJlZibWIXGRSzVLdw3hbMFs8nofxVIODIf1GKAiGDEuKBkzeBsFftDZOJNz9AKHAUvX-DmGYx9mCls91sbKzBgf5aKR9EsmOHGVR212jOZR2SIVtjwQMOnR4gB8cv5rUN7iL6eGe1mPfR" alt="Wide-Leg Wool Trousers"/>
+            <button onclick="event.stopPropagation(); toggleWishlist(this, 'Wide-Leg Wool Trousers')" class="absolute top-4 right-4 material-symbols-outlined text-white text-lg bg-black/20 backdrop-blur-md p-2 hover:bg-black/60 transition">favorite_border</button>
+          </div>
+          <p class="text-caption text-secondary mb-1">TAILORING</p>
+          <p class="text-body-sm font-semibold uppercase mb-1">Wide-Leg Wool Trousers</p>
+          <p class="text-body-sm font-bold">$320.00</p>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="min-w-[280px] md:min-w-[360px] snap-start group cursor-pointer" onclick="openPDP('Large Sculptural Tote', 850, 'https://lh3.googleusercontent.com/aida-public/AB6AXuCXSwZUjUdRDzb80ollwBOG36pPYH9TLkbDN-KaOfQMgYGKctZKNGSpEiIeE3_rmm9RbFXCpZeHN-zD69ATDQD5UJpXHbamRY4OQ_YIeBt9nVrNGNpA2KsMJs0aSWIEfdKwigaSVcQctAVwNQ-ZZB7S_6J7gb50sAjvw5inRlYzNoIZN2CmV_0nzCAJuC3b0kf6CoprrRX6z3NqQrDh36MvAngS4MCppAjlm4oOxcQC8is7UmNSwMDB')">
+          <div class="aspect-[3/4] img-hover-container mb-4 relative">
+            <img class="w-full h-full object-cover main-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXSwZUjUdRDzb80ollwBOG36pPYH9TLkbDN-KaOfQMgYGKctZKNGSpEiIeE3_rmm9RbFXCpZeHN-zD69ATDQD5UJpXHbamRY4OQ_YIeBt9nVrNGNpA2KsMJs0aSWIEfdKwigaSVcQctAVwNQ-ZZB7S_6J7gb50sAjvw5inRlYzNoIZN2CmV_0nzCAJuC3b0kf6CoprrRX6z3NqQrDh36MvAngS4MCppAjlm4oOxcQC8is7UmNSwMDB" alt="Large Sculptural Tote"/>
+            <button onclick="event.stopPropagation(); toggleWishlist(this, 'Large Sculptural Tote')" class="absolute top-4 right-4 material-symbols-outlined text-white text-lg bg-black/20 backdrop-blur-md p-2 hover:bg-black/60 transition">favorite_border</button>
+          </div>
+          <p class="text-caption text-secondary mb-1">ACCESSORIES</p>
+          <p class="text-body-sm font-semibold uppercase mb-1">Large Sculptural Tote</p>
+          <p class="text-body-sm font-bold">$850.00</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Editorial Philosophy Break -->
+    <section class="relative h-[70vh] w-full overflow-hidden flex items-center justify-center my-12 reveal-on-scroll">
+      <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCZZn42eRSRaY3sXf2cDKFaFqPfhaIF0gHUWTE6f1BJh9HzhWtzc-pONQeP3HtmeCHtWyYysmu4BXELuFPa26_ffIlXIMlZP1QSt_D2hYaHUN1vynrzQI3WATmodFInNOUx534cg0P54BQW3JiZy-O3IZYF8oyuEm_InFZ1_-0L7-esAIdUVaxRcC_GKDYFmyK0DmbCJ0To7jUF2F1gFTbUUl-V58jpYtzgnkCRsr2YtAHroQZflRhu')"></div>
+      <div class="absolute inset-0 bg-black/40"></div>
+      <div class="relative z-10 text-center px-6 max-w-3xl">
+        <p class="font-display italic text-2xl md:text-4xl text-white font-light leading-relaxed mb-6">
+          "We believe luxury is found in visual silence — pure proportions, natural virgin wool, and architectural precision."
+        </p>
+        <span class="text-nav-label text-white/80 tracking-widest uppercase">— SILENT EDITORIAL MANIFESTO</span>
+      </div>
+    </section>
+
+    <!-- 6. Instagram UGC Strip -->
+    <section class="py-16 px-6 md:px-12 max-w-[1440px] mx-auto reveal-on-scroll">
+      <div class="text-center mb-10">
+        <span class="text-caption text-secondary block mb-2">@SILENTEDITORIAL</span>
+        <h2 class="text-headline-md uppercase font-display">Live In Visual Silence</h2>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+        <div class="aspect-square img-hover-container cursor-pointer"><img class="w-full h-full object-cover main-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfgmzaDfxT6ZD5Ddc_Zo8hwSunMVkGt52foPHu__CykbTeBlWs5HTDTCk8hYWquI_8VFeNHHjRs6pGPUdLb51h0lGvz_eXRsbQS692QIXSoAeNhXAUJPtdl42bIh4qsPXp1Ivt1AHvL6pmVSzFidLI4eBIm0jM1ie5d8y6pM47YFDn-_qirpJ4SUulE8K2hgB22wipm0_Ypqq17iDAsN50D73BLmgzzMs6pbS_l3Uy0_mG6Nh3VL6h" alt="UGC 1"/></div>
+        <div class="aspect-square img-hover-container cursor-pointer"><img class="w-full h-full object-cover main-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnD_YuFKPakN4P25pNG4rMjSkP2pCVzi9V-jNHyicXgDrIb7zCYg8-VEshmp7isONTiEFRuKcYEa25HQNxTfNEGtwiMt7O5eRHhnGE10zKnCeD3v5hcDJJ74-8_5kJWbAwQHpTEPoceBPnUEqz1Ockjgz7osOlUCS8mnrsJ4WLak3LuGHsM2ttMEQ3mtZocM_XORdmmv2l3XGCNBHzWWDASqssF8qPrTWo9qPVoE9Hb0hG5rY_1-xT" alt="UGC 2"/></div>
+        <div class="aspect-square img-hover-container cursor-pointer"><img class="w-full h-full object-cover main-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTZT-UEZGcYu9jM_R9zRYCyiHjCEwYd2TuTeInIsrc59ayE7ZC65zn63PUbOrj44Z6uIlWpQfwOKQwwaShSs2Fr-Fa5AQDIYVdmpMRMc0XatFD2DwRt_cIh3gzCwpqei8Jv5OCdCZYMSNUg0WILRnulTREAYSyBMUfIAex4i6JwKxogWzgcSEy9gmRLXF5uy9hu2YcMI5Ao9Nolt-WvqNf0cYJLSCPtEM6RuYsu1vx8x4IWxi6iOA1" alt="UGC 3"/></div>
+        <div class="aspect-square img-hover-container cursor-pointer"><img class="w-full h-full object-cover main-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCma9_fF-VWN504IwySVEeHvK2ODXdEQR4XB6r_FGyM_sU77aXb8MmLSMT16_GSuvQfVDIACR08u9MIS82MiesE_0MS7KMr3VLvtXRfx1izPR9p9E_s69Ob_LbivOMYToLZRo147REd_5e79ih6b2EDO8LvLI3paNw3tr_4XjSFWaNMjjm0OTs4EnOiTAKxMvjuCk-kpO2iy4sna8qUdDpCOcaRikOcSwLNuaUYNJSpbnInx0zoltM6" alt="UGC 4"/></div>
+        <div class="aspect-square img-hover-container cursor-pointer hidden md:block"><img class="w-full h-full object-cover main-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYLpYrekUxA8s-bnAxbKuOOWK0HVR2GZa-12i3c0DX3tEI1-5zrDZ2QTTPUG8_Q2xDBTJCsDY4otf_ZXw86flBlDyppD91RQCcfsBqh1ewtjragGHbr2vf_RFsxzL9LnHWEmOSj53eVS7zZZtLm3dz2lvp-TA9JxoGjD-JICF6pIAda3gjU3K8eoGWKtGE1x8cMVvwZR_J9y_GMsNXakrTb6A4KvPDGOr_xwkCEog-Ygb1mTm4GTds" alt="UGC 5"/></div>
+      </div>
+    </section>
+
+    <!-- 7. Newsletter Band -->
+    <section class="bg-primary text-surface py-24 px-6 md:px-12">
+      <div class="max-w-2xl mx-auto text-center">
+        <span class="text-caption text-gray-400 tracking-[0.2em] uppercase block mb-3">Newsletter Subscription</span>
+        <h2 class="text-headline-md font-display mb-4 text-white">Join The Editorial List</h2>
+        <p class="text-body-sm text-gray-300 mb-8">Receive early access to seasonal lookbooks, limited monographs, and private capsule drops.</p>
+        <form onsubmit="subscribeNewsletter(event)" class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+          <input type="email" required placeholder="Enter your email address" class="input-minimal-dark flex-grow"/>
+          <button type="submit" class="btn-outline border-white text-white hover:bg-white hover:text-primary py-3">Subscribe →</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+
+  <!-- ================= VIEW 2: SHOP / OUTERWEAR ================= -->
+  <main id="shop-view" class="view-section pt-28 px-6 md:px-12 max-w-[1440px] mx-auto min-h-screen">
+    
+    <!-- PLP Header -->
+    <div class="mb-10 pb-6 border-b border-on-surface/10">
+      <div class="flex justify-between items-baseline flex-wrap gap-4">
+        <div>
+          <span class="text-caption text-secondary block mb-1">COLLECTION 2026</span>
+          <h1 class="text-display-lg font-display uppercase tracking-tight">Outerwear</h1>
+        </div>
+        <span class="text-caption text-secondary">Showing 8 of 42 items</span>
+      </div>
+      <p class="text-body-sm text-secondary max-w-xl mt-3">Architecturally structured overcoats, Italian virgin wool trench coats, and heavyweight cashmere wraps designed for permanence.</p>
+    </div>
+
+    <!-- Sticky Filter & Sort Bar -->
+    <div class="sticky top-20 z-40 bg-surface/90 backdrop-blur-md py-4 mb-10 flex justify-between items-center border-b border-on-surface/10 flex-wrap gap-4">
+      <!-- Category Tabs -->
+      <div class="flex items-center gap-6 overflow-x-auto hide-scrollbar">
+        <button onclick="filterShop('all', this)" class="text-nav-label text-on-surface border-b-2 border-on-surface pb-1">ALL</button>
+        <button onclick="filterShop('coats', this)" class="text-nav-label text-secondary hover:text-on-surface pb-1">COATS</button>
+        <button onclick="filterShop('trench', this)" class="text-nav-label text-secondary hover:text-on-surface pb-1">TRENCH</button>
+        <button onclick="filterShop('blazers', this)" class="text-nav-label text-secondary hover:text-on-surface pb-1">BLAZERS</button>
+        <button onclick="filterShop('jackets', this)" class="text-nav-label text-secondary hover:text-on-surface pb-1">JACKETS</button>
+      </div>
+
+      <!-- Size Filter & Sort Controls -->
+      <div class="flex items-center gap-6">
+        <!-- Size Quick Filter Pills -->
+        <div class="hidden lg:flex items-center gap-2">
+          <span class="text-caption text-secondary mr-2">SIZE:</span>
+          <button onclick="toggleSizeFilter(this, 'XS')" class="w-8 h-8 text-xs font-semibold border border-on-surface/30 hover:border-on-surface flex items-center justify-center">XS</button>
+          <button onclick="toggleSizeFilter(this, 'S')" class="w-8 h-8 text-xs font-semibold border border-on-surface/30 hover:border-on-surface flex items-center justify-center">S</button>
+          <button onclick="toggleSizeFilter(this, 'M')" class="w-8 h-8 text-xs font-semibold border border-on-surface/30 hover:border-on-surface flex items-center justify-center">M</button>
+          <button onclick="toggleSizeFilter(this, 'L')" class="w-8 h-8 text-xs font-semibold border border-on-surface/30 hover:border-on-surface flex items-center justify-center">L</button>
+        </div>
+        <!-- Sort Dropdown -->
+        <select onchange="sortShop(this.value)" class="bg-transparent border border-on-surface/30 text-xs font-semibold tracking-widest uppercase px-4 py-2 outline-none cursor-pointer">
+          <option value="featured">Sort: Featured</option>
+          <option value="low-high">Price: Low to High</option>
+          <option value="high-low">Price: High to Low</option>
+          <option value="newest">Newest First</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Product Grid (3-column Desktop) -->
+    <div id="shop-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16 pb-24">
+      
+      <!-- Item 1 (Structured Wool Coat) -->
+      <div class="group cursor-pointer product-card" data-category="coats" data-price="1450" onclick="openPDP('Structured Wool Coat', 1450, 'https://lh3.googleusercontent.com/aida-public/AB6AXuCTOp7on7YUMAwoZCiuURKgJP-BNPpbiiVDBOgZXjBnblYmDwzJ-1Oh9_AuX4IljsLIy-7xmxBAIirdvXCx8CyVrdmjJ42Ap1dqBCWpCjgl-BwO-kR-ympZgvejUn9QXCygZFA5DdZchObFIvCIEGCWFGmbm1MDC4evOOlYGnMK5Vk4H3a9SurgKQy3OMvfefHcqaqr_Wc-1nL8dbyCE_DN0wBJ4PO3KEiOq_6Lr90nk_l7u66uJqqy')">
+        <div class="aspect-[3/4] img-hover-container mb-4 relative bg-surface-container">
+          <img class="w-full h-full object-cover main-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTOp7on7YUMAwoZCiuURKgJP-BNPpbiiVDBOgZXjBnblYmDwzJ-1Oh9_AuX4IljsLIy-7xmxBAIirdvXCx8CyVrdmjJ42Ap1dqBCWpCjgl-BwO-kR-ympZgvejUn9QXCygZFA5DdZchObFIvCIEGCWFGmbm1MDC4evOOlYGnMK5Vk4H3a9SurgKQy3OMvfefHcqaqr_Wc-1nL8dbyCE_DN0wBJ4PO3KEiOq_6Lr90nk_l7u66uJqqy" alt="Structured Wool Coat"/>
+          <img class="w-full h-full object-cover secondary-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYLpYrekUxA8s-bnAxbKuOOWK0HVR2GZa-12i3c0DX3tEI1-5zrDZ2QTTPUG8_Q2xDBTJCsDY4otf_ZXw86flBlDyppD91RQCcfsBqh1ewtjragGHbr2vf_RFsxzL9LnHWEmOSj53eVS7zZZtLm3dz2lvp-TA9JxoGjD-JICF6pIAda3gjU3K8eoGWKtGE1x8cMVvwZR_J9y_GMsNXakrTb6A4KvPDGOr_xwkCEog-Ygb1mTm4GTds" alt="Structured Wool Coat Back View"/>
+          <button onclick="event.stopPropagation(); toggleWishlist(this, 'Structured Wool Coat')" class="absolute top-4 right-4 material-symbols-outlined text-white text-lg bg-black/20 backdrop-blur-md p-2 hover:bg-black/60 transition">favorite_border</button>
+          <div class="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <button onclick="event.stopPropagation(); addToCart('Structured Wool Coat', 1450, 'Charcoal', 'M', 'https://lh3.googleusercontent.com/aida-public/AB6AXuCTOp7on7YUMAwoZCiuURKgJP-BNPpbiiVDBOgZXjBnblYmDwzJ-1Oh9_AuX4IljsLIy-7xmxBAIirdvXCx8CyVrdmjJ42Ap1dqBCWpCjgl-BwO-kR-ympZgvejUn9QXCygZFA5DdZchObFIvCIEGCWFGmbm1MDC4evOOlYGnMK5Vk4H3a9SurgKQy3OMvfefHcqaqr_Wc-1nL8dbyCE_DN0wBJ4PO3KEiOq_6Lr90nk_l7u66uJqqy')" class="btn-primary w-full text-xs py-3">Quick Add +</button>
+          </div>
+        </div>
+        <div class="flex justify-between items-start">
+          <div>
+            <p class="text-caption text-secondary uppercase mb-1">COATS</p>
+            <h3 class="text-body-sm font-semibold uppercase">Structured Wool Coat</h3>
+          </div>
+          <p class="text-body-sm font-bold">$1,450.00</p>
+        </div>
+      </div>
+
+      <!-- Item 2 (Heritage Trench Coat) -->
+      <div class="group cursor-pointer product-card" data-category="trench" data-price="1100" onclick="openPDP('Heritage Trench Coat', 1100, 'https://lh3.googleusercontent.com/aida-public/AB6AXuCYLpYrekUxA8s-bnAxbKuOOWK0HVR2GZa-12i3c0DX3tEI1-5zrDZ2QTTPUG8_Q2xDBTJCsDY4otf_ZXw86flBlDyppD91RQCcfsBqh1ewtjragGHbr2vf_RFsxzL9LnHWEmOSj53eVS7zZZtLm3dz2lvp-TA9JxoGjD-JICF6pIAda3gjU3K8eoGWKtGE1x8cMVvwZR_J9y_GMsNXakrTb6A4KvPDGOr_xwkCEog-Ygb1mTm4GTds')">
+        <div class="aspect-[3/4] img-hover-container mb-4 relative bg-surface-container">
+          <img class="w-full h-full object-cover main-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYLpYrekUxA8s-bnAxbKuOOWK0HVR2GZa-12i3c0DX3tEI1-5zrDZ2QTTPUG8_Q2xDBTJCsDY4otf_ZXw86flBlDyppD91RQCcfsBqh1ewtjragGHbr2vf_RFsxzL9LnHWEmOSj53eVS7zZZtLm3dz2lvp-TA9JxoGjD-JICF6pIAda3gjU3K8eoGWKtGE1x8cMVvwZR_J9y_GMsNXakrTb6A4KvPDGOr_xwkCEog-Ygb1mTm4GTds" alt="Heritage Trench Coat"/>
+          <button onclick="event.stopPropagation(); toggleWishlist(this, 'Heritage Trench Coat')" class="absolute top-4 right-4 material-symbols-outlined text-white text-lg bg-black/20 backdrop-blur-md p-2 hover:bg-black/60 transition">favorite_border</button>
+          <div class="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <button onclick="event.stopPropagation(); addToCart('Heritage Trench Coat', 1100, 'Stone Beige', 'L', 'https://lh3.googleusercontent.com/aida-public/AB6AXuCYLpYrekUxA8s-bnAxbKuOOWK0HVR2GZa-12i3c0DX3tEI1-5zrDZ2QTTPUG8_Q2xDBTJCsDY4otf_ZXw86flBlDyppD91RQCcfsBqh1ewtjragGHbr2vf_RFsxzL9LnHWEmOSj53eVS7zZZtLm3dz2lvp-TA9JxoGjD-JICF6pIAda3gjU3K8eoGWKtGE1x8cMVvwZR_J9y_GMsNXakrTb6A4KvPDGOr_xwkCEog-Ygb1mTm4GTds')" class="btn-primary w-full text-xs py-3">Quick Add +</button>
+          </div>
+        </div>
+        <div class="flex justify-between items-start">
+          <div>
+            <p class="text-caption text-secondary uppercase mb-1">TRENCH</p>
+            <h3 class="text-body-sm font-semibold uppercase">Heritage Trench Coat</h3>
+          </div>
+          <p class="text-body-sm font-bold">$1,100.00</p>
+        </div>
+      </div>
+
+      <!-- Item 3 (Structured Wool Blazer) -->
+      <div class="group cursor-pointer product-card" data-category="blazers" data-price="590" onclick="openPDP('Structured Wool Blazer', 590, 'https://lh3.googleusercontent.com/aida-public/AB6AXuCma9_fF-VWN504IwySVEeHvK2ODXdEQR4XB6r_FGyM_sU77aXb8MmLSMT16_GSuvQfVDIACR08u9MIS82MiesE_0MS7KMr3VLvtXRfx1izPR9p9E_s69Ob_LbivOMYToLZRo147REd_5e79ih6b2EDO8LvLI3paNw3tr_4XjSFWaNMjjm0OTs4EnOiTAKxMvjuCk-kpO2iy4sna8qUdDpCOcaRikOcSwLNuaUYNJSpbnInx0zoltM6')">
+        <div class="aspect-[3/4] img-hover-container mb-4 relative bg-surface-container">
+          <img class="w-full h-full object-cover main-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCma9_fF-VWN504IwySVEeHvK2ODXdEQR4XB6r_FGyM_sU77aXb8MmLSMT16_GSuvQfVDIACR08u9MIS82MiesE_0MS7KMr3VLvtXRfx1izPR9p9E_s69Ob_LbivOMYToLZRo147REd_5e79ih6b2EDO8LvLI3paNw3tr_4XjSFWaNMjjm0OTs4EnOiTAKxMvjuCk-kpO2iy4sna8qUdDpCOcaRikOcSwLNuaUYNJSpbnInx0zoltM6" alt="Structured Wool Blazer"/>
+          <button onclick="event.stopPropagation(); toggleWishlist(this, 'Structured Wool Blazer')" class="absolute top-4 right-4 material-symbols-outlined text-white text-lg bg-black/20 backdrop-blur-md p-2 hover:bg-black/60 transition">favorite_border</button>
+          <div class="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <button onclick="event.stopPropagation(); addToCart('Structured Wool Blazer', 590, 'Forest Green', 'M', 'https://lh3.googleusercontent.com/aida-public/AB6AXuCma9_fF-VWN504IwySVEeHvK2ODXdEQR4XB6r_FGyM_sU77aXb8MmLSMT16_GSuvQfVDIACR08u9MIS82MiesE_0MS7KMr3VLvtXRfx1izPR9p9E_s69Ob_LbivOMYToLZRo147REd_5e79ih6b2EDO8LvLI3paNw3tr_4XjSFWaNMjjm0OTs4EnOiTAKxMvjuCk-kpO2iy4sna8qUdDpCOcaRikOcSwLNuaUYNJSpbnInx0zoltM6')" class="btn-primary w-full text-xs py-3">Quick Add +</button>
+          </div>
+        </div>
+        <div class="flex justify-between items-start">
+          <div>
+            <p class="text-caption text-secondary uppercase mb-1">BLAZERS</p>
+            <h3 class="text-body-sm font-semibold uppercase">Structured Wool Blazer</h3>
+          </div>
+          <p class="text-body-sm font-bold">$590.00</p>
+        </div>
+      </div>
+
+      <!-- Item 4 (Double-Breasted Cashmere Jacket) -->
+      <div class="group cursor-pointer product-card" data-category="jackets" data-price="980" onclick="openPDP('Double-Breasted Cashmere Jacket', 980, 'https://lh3.googleusercontent.com/aida-public/AB6AXuAfgmzaDfxT6ZD5Ddc_Zo8hwSunMVkGt52foPHu__CykbTeBlWs5HTDTCk8hYWquI_8VFeNHHjRs6pGPUdLb51h0lGvz_eXRsbQS692QIXSoAeNhXAUJPtdl42bIh4qsPXp1Ivt1AHvL6pmVSzFidLI4eBIm0jM1ie5d8y6pM47YFDn-_qirpJ4SUulE8K2hgB22wipm0_Ypqq17iDAsN50D73BLmgzzMs6pbS_l3Uy0_mG6Nh3VL6h')">
+        <div class="aspect-[3/4] img-hover-container mb-4 relative bg-surface-container">
+          <img class="w-full h-full object-cover main-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfgmzaDfxT6ZD5Ddc_Zo8hwSunMVkGt52foPHu__CykbTeBlWs5HTDTCk8hYWquI_8VFeNHHjRs6pGPUdLb51h0lGvz_eXRsbQS692QIXSoAeNhXAUJPtdl42bIh4qsPXp1Ivt1AHvL6pmVSzFidLI4eBIm0jM1ie5d8y6pM47YFDn-_qirpJ4SUulE8K2hgB22wipm0_Ypqq17iDAsN50D73BLmgzzMs6pbS_l3Uy0_mG6Nh3VL6h" alt="Double-Breasted Cashmere Jacket"/>
+          <button onclick="event.stopPropagation(); toggleWishlist(this, 'Double-Breasted Cashmere Jacket')" class="absolute top-4 right-4 material-symbols-outlined text-white text-lg bg-black/20 backdrop-blur-md p-2 hover:bg-black/60 transition">favorite_border</button>
+          <div class="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <button onclick="event.stopPropagation(); addToCart('Double-Breasted Cashmere Jacket', 980, 'Camel', 'S', 'https://lh3.googleusercontent.com/aida-public/AB6AXuAfgmzaDfxT6ZD5Ddc_Zo8hwSunMVkGt52foPHu__CykbTeBlWs5HTDTCk8hYWquI_8VFeNHHjRs6pGPUdLb51h0lGvz_eXRsbQS692QIXSoAeNhXAUJPtdl42bIh4qsPXp1Ivt1AHvL6pmVSzFidLI4eBIm0jM1ie5d8y6pM47YFDn-_qirpJ4SUulE8K2hgB22wipm0_Ypqq17iDAsN50D73BLmgzzMs6pbS_l3Uy0_mG6Nh3VL6h')" class="btn-primary w-full text-xs py-3">Quick Add +</button>
+          </div>
+        </div>
+        <div class="flex justify-between items-start">
+          <div>
+            <p class="text-caption text-secondary uppercase mb-1">JACKETS</p>
+            <h3 class="text-body-sm font-semibold uppercase">Double-Breasted Cashmere Jacket</h3>
+          </div>
+          <p class="text-body-sm font-bold">$980.00</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+
+  <!-- ================= VIEW 3: PRODUCT DETAIL PAGE (PDP) ================= -->
+  <main id="product-view" class="view-section pt-28 px-6 md:px-12 max-w-[1440px] mx-auto min-h-screen">
+    
+    <!-- Breadcrumb -->
+    <div class="text-caption text-secondary mb-8">
+      <a href="#home" onclick="navigateTo('home'); return false;" class="hover:underline">HOME</a> / 
+      <a href="#shop" onclick="navigateTo('shop'); return false;" class="hover:underline">OUTERWEAR</a> / 
+      <span id="pdp-breadcrumb" class="text-on-surface font-semibold">STRUCTURED WOOL COAT</span>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 pb-24">
+      
+      <!-- LEFT 60%: Sticky Image Gallery -->
+      <div class="lg:col-span-7 flex flex-col md:flex-row-reverse gap-4">
+        <!-- Main Image with Lightbox Zoom -->
+        <div class="flex-grow aspect-[3/4] bg-surface-container relative group cursor-zoom-in" onclick="openLightbox()">
+          <img id="pdp-main-img" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTOp7on7YUMAwoZCiuURKgJP-BNPpbiiVDBOgZXjBnblYmDwzJ-1Oh9_AuX4IljsLIy-7xmxBAIirdvXCx8CyVrdmjJ42Ap1dqBCWpCjgl-BwO-kR-ympZgvejUn9QXCygZFA5DdZchObFIvCIEGCWFGmbm1MDC4evOOlYGnMK5Vk4H3a9SurgKQy3OMvfefHcqaqr_Wc-1nL8dbyCE_DN0wBJ4PO3KEiOq_6Lr90nk_l7u66uJqqy" alt="Main Product Photo"/>
+          <span class="absolute bottom-4 right-4 bg-black/40 text-white text-xs px-3 py-1 backdrop-blur-md opacity-0 group-hover:opacity-100 transition">Click to Zoom 🔍</span>
+        </div>
+        <!-- Thumbnail Selector -->
+        <div class="flex md:flex-col gap-3 min-w-[90px]">
+          <img onclick="switchPDPImage(this.src)" class="w-20 h-24 object-cover border-2 border-on-surface cursor-pointer pdp-thumb" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTOp7on7YUMAwoZCiuURKgJP-BNPpbiiVDBOgZXjBnblYmDwzJ-1Oh9_AuX4IljsLIy-7xmxBAIirdvXCx8CyVrdmjJ42Ap1dqBCWpCjgl-BwO-kR-ympZgvejUn9QXCygZFA5DdZchObFIvCIEGCWFGmbm1MDC4evOOlYGnMK5Vk4H3a9SurgKQy3OMvfefHcqaqr_Wc-1nL8dbyCE_DN0wBJ4PO3KEiOq_6Lr90nk_l7u66uJqqy" alt="Thumb 1"/>
+          <img onclick="switchPDPImage(this.src)" class="w-20 h-24 object-cover border border-transparent hover:border-on-surface/50 cursor-pointer pdp-thumb" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYLpYrekUxA8s-bnAxbKuOOWK0HVR2GZa-12i3c0DX3tEI1-5zrDZ2QTTPUG8_Q2xDBTJCsDY4otf_ZXw86flBlDyppD91RQCcfsBqh1ewtjragGHbr2vf_RFsxzL9LnHWEmOSj53eVS7zZZtLm3dz2lvp-TA9JxoGjD-JICF6pIAda3gjU3K8eoGWKtGE1x8cMVvwZR_J9y_GMsNXakrTb6A4KvPDGOr_xwkCEog-Ygb1mTm4GTds" alt="Thumb 2"/>
+          <img onclick="switchPDPImage(this.src)" class="w-20 h-24 object-cover border border-transparent hover:border-on-surface/50 cursor-pointer pdp-thumb" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfgmzaDfxT6ZD5Ddc_Zo8hwSunMVkGt52foPHu__CykbTeBlWs5HTDTCk8hYWquI_8VFeNHHjRs6pGPUdLb51h0lGvz_eXRsbQS692QIXSoAeNhXAUJPtdl42bIh4qsPXp1Ivt1AHvL6pmVSzFidLI4eBIm0jM1ie5d8y6pM47YFDn-_qirpJ4SUulE8K2hgB22wipm0_Ypqq17iDAsN50D73BLmgzzMs6pbS_l3Uy0_mG6Nh3VL6h" alt="Thumb 3"/>
+        </div>
+      </div>
+
+      <!-- RIGHT 40%: Product Info Panel -->
+      <div class="lg:col-span-5 flex flex-col justify-start">
+        <span class="text-caption text-secondary mb-2">AUTUMN / WINTER COLLECTION</span>
+        <h1 id="pdp-title" class="text-headline-md font-display font-semibold uppercase mb-3">Structured Wool Coat</h1>
+        <p id="pdp-price" class="text-2xl font-bold mb-6">$1,450.00</p>
+        
+        <p class="text-body-sm text-secondary mb-8 leading-relaxed">
+          Crafted in Northern Italy from heavyweight 100% virgin wool. Features sharp padded shoulders, concealed horn buttons, and a dramatic ankle-length silhouette.
+        </p>
+
+        <!-- Color Swatch Selection -->
+        <div class="mb-6">
+          <span class="text-caption text-secondary block mb-3">COLOR: <strong id="selected-color" class="text-on-surface">Charcoal Grey</strong></span>
+          <div class="flex items-center gap-3">
+            <button onclick="selectColor(this, 'Charcoal Grey')" class="w-7 h-7 rounded-full bg-[#2B2B2B] ring-2 ring-offset-2 ring-on-surface color-swatch"></button>
+            <button onclick="selectColor(this, 'Bone Beige')" class="w-7 h-7 rounded-full bg-[#EAE3DA] ring-1 ring-on-surface/30 color-swatch"></button>
+            <button onclick="selectColor(this, 'Midnight Ink')" class="w-7 h-7 rounded-full bg-[#152434] ring-1 ring-on-surface/30 color-swatch"></button>
+          </div>
+        </div>
+
+        <!-- Size Selection -->
+        <div class="mb-8">
+          <div class="flex justify-between items-center mb-3">
+            <span class="text-caption text-secondary">SELECT SIZE</span>
+            <button onclick="openSizeGuide()" class="text-caption text-on-surface underline">Size Guide</button>
+          </div>
+          <div class="grid grid-cols-4 gap-3">
+            <button onclick="selectSize(this, 'XS')" class="py-3 border border-on-surface/30 text-xs font-bold hover:border-on-surface size-btn">XS</button>
+            <button onclick="selectSize(this, 'S')" class="py-3 border border-on-surface/30 text-xs font-bold hover:border-on-surface size-btn">S</button>
+            <button onclick="selectSize(this, 'M')" class="py-3 border border-on-surface bg-on-surface text-surface text-xs font-bold size-btn">M</button>
+            <button onclick="selectSize(this, 'L')" class="py-3 border border-on-surface/30 text-xs font-bold hover:border-on-surface size-btn">L</button>
+          </div>
+        </div>
+
+        <!-- Primary CTAs -->
+        <div class="flex flex-col gap-4 mb-10">
+          <button onclick="addCurrentPDPToCart()" class="btn-primary py-4 text-sm w-full">
+            Add to Shopping Bag — <span id="pdp-cta-price">$1,450.00</span>
+          </button>
+          <button onclick="showToast('Saved to Wishlist')" class="text-caption text-secondary hover:text-on-surface text-center py-2 underline">
+            + Save to Wishlist
+          </button>
+        </div>
+
+        <!-- Trust Badges -->
+        <div class="grid grid-cols-3 gap-4 border-y border-on-surface/10 py-4 mb-8 text-center">
+          <div>
+            <span class="material-symbols-outlined text-lg block mb-1">local_shipping</span>
+            <span class="text-[10px] text-secondary font-semibold uppercase tracking-wider block">Complimentary Shipping</span>
+          </div>
+          <div>
+            <span class="material-symbols-outlined text-lg block mb-1">published_with_changes</span>
+            <span class="text-[10px] text-secondary font-semibold uppercase tracking-wider block">30-Day Easy Returns</span>
+          </div>
+          <div>
+            <span class="material-symbols-outlined text-lg block mb-1">verified</span>
+            <span class="text-[10px] text-secondary font-semibold uppercase tracking-wider block">100% Virgin Wool</span>
+          </div>
+        </div>
+
+        <!-- Expandable Accordions -->
+        <div class="divide-y divide-on-surface/10">
+          <details class="py-4 cursor-pointer group">
+            <summary class="flex justify-between items-center text-nav-label font-semibold">
+              DETAILS & CARE
+              <span class="group-open:rotate-45 transition-transform duration-300 text-lg">+</span>
+            </summary>
+            <p class="text-body-sm text-secondary mt-3 leading-relaxed">
+              • 100% Virgin Wool, woven in Biella, Italy<br/>
+              • Cupro lining for smooth layering<br/>
+              • Double-breasted button closure<br/>
+              • Dry clean only
+            </p>
+          </details>
+          <details class="py-4 cursor-pointer group">
+            <summary class="flex justify-between items-center text-nav-label font-semibold">
+              SUSTAINABILITY & CRAFTSMANSHIP
+              <span class="group-open:rotate-45 transition-transform duration-300 text-lg">+</span>
+            </summary>
+            <p class="text-body-sm text-secondary mt-3 leading-relaxed">
+              Sourced from zero-mulesing ethical farms in New Zealand and tailored in a solar-powered atelier outside Milan. Built for decades of wear.
+            </p>
+          </details>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+
+  <!-- ================= VIEW 4: ABOUT / BRAND STORY ================= -->
+  <main id="about-view" class="view-section pt-20 min-h-screen">
+    
+    <!-- Hero -->
+    <section class="relative h-[65vh] w-full overflow-hidden flex items-center justify-center">
+      <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCZZn42eRSRaY3sXf2cDKFaFqPfhaIF0gHUWTE6f1BJh9HzhWtzc-pONQeP3HtmeCHtWyYysmu4BXELuFPa26_ffIlXIMlZP1QSt_D2hYaHUN1vynrzQI3WATmodFInNOUx534cg0P54BQW3JiZy-O3IZYF8oyuEm_InFZ1_-0L7-esAIdUVaxRcC_GKDYFmyK0DmbCJ0To7jUF2F1gFTbUUl-V58jpYtzgnkCRsr2YtAHroQZflRhu')"></div>
+      <div class="absolute inset-0 bg-black/30"></div>
+      <div class="relative z-10 text-center px-6 max-w-3xl">
+        <span class="text-caption text-white/80 tracking-[0.3em] uppercase block mb-3">Our Philosophy</span>
+        <h1 class="text-display-lg font-display text-white font-bold tracking-tight">The Art of Visual Silence</h1>
+      </div>
+    </section>
+
+    <!-- Long-Form Story -->
+    <section class="py-24 px-6 md:px-12 max-w-3xl mx-auto text-center">
+      <p class="text-body-main text-on-surface leading-loose mb-10">
+        ELEGANCE was founded in 2026 as a quiet protest against fast trends and disposable clothing. We create timeless garments that serve as architectural armor for modern living.
+      </p>
+      
+      <!-- Pull Quote -->
+      <blockquote class="font-display italic text-2xl md:text-3xl text-primary my-12 border-y border-on-surface/10 py-10 leading-relaxed">
+        "True elegance does not demand attention; it commands presence through pure form and silent material quality."
+      </blockquote>
+
+      <p class="text-body-main text-secondary leading-loose">
+        Every silhouette is developed over six months of iterative drafting. We work exclusively with family-owned mills across Lombardy and Tuscany to source uncompromised natural fibers.
+      </p>
+    </section>
+  </main>
+
+
+  <!-- ================= VIEW 5: JOURNAL / EDITORIAL ================= -->
+  <main id="journal-view" class="view-section pt-28 px-6 md:px-12 max-w-[1440px] mx-auto min-h-screen">
+    <div class="mb-12 text-center max-w-2xl mx-auto">
+      <span class="text-caption text-secondary block mb-2">MONOGRAPHS & ESSAYS</span>
+      <h1 class="text-display-lg font-display uppercase tracking-tight">The Silent Journal</h1>
+      <p class="text-body-sm text-secondary mt-3">Explorations in architecture, textile design, and contemporary visual minimalism.</p>
+    </div>
+
+    <!-- Featured Hero Story -->
+    <div onclick="openJournalModal('Architectural Tailoring in the Modern Era')" class="mb-16 relative group cursor-pointer img-hover-container aspect-[21/9] bg-surface-container">
+      <img class="w-full h-full object-cover main-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTOp7on7YUMAwoZCiuURKgJP-BNPpbiiVDBOgZXjBnblYmDwzJ-1Oh9_AuX4IljsLIy-7xmxBAIirdvXCx8CyVrdmjJ42Ap1dqBCWpCjgl-BwO-kR-ympZgvejUn9QXCygZFA5DdZchObFIvCIEGCWFGmbm1MDC4evOOlYGnMK5Vk4H3a9SurgKQy3OMvfefHcqaqr_Wc-1nL8dbyCE_DN0wBJ4PO3KEiOq_6Lr90nk_l7u66uJqqy" alt="Featured Article"/>
+      <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-8 md:p-12 text-white">
+        <span class="text-caption tracking-widest text-white/80 block mb-2">ESSAY — 6 MIN READ</span>
+        <h2 class="text-2xl md:text-4xl font-display font-semibold mb-4 max-w-2xl">Architectural Tailoring in the Modern Era</h2>
+        <span class="text-nav-label underline-hover">Read Monograph →</span>
+      </div>
+    </div>
+  </main>
+
+
+  <!-- ================= VIEW 6: SHOPPING BAG PAGE ================= -->
+  <main id="bag-view" class="view-section pt-28 px-6 md:px-12 max-w-[1440px] mx-auto min-h-screen">
+    <h1 class="text-display-lg font-display uppercase mb-8">Your Shopping Bag</h1>
+    
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 pb-24">
+      <div class="lg:col-span-8">
+        <div id="full-bag-items" class="divide-y divide-on-surface/10">
+          <!-- Rendered dynamically by app.js -->
+        </div>
+      </div>
+      
+      <!-- Order Summary Card -->
+      <div class="lg:col-span-4 bg-surface-container p-8 h-fit border border-on-surface/10">
+        <h3 class="text-headline-md font-display uppercase mb-6">Order Summary</h3>
+        <div class="flex justify-between mb-4 text-body-sm">
+          <span>Subtotal</span>
+          <span id="bag-subtotal" class="font-bold">$1,450.00</span>
+        </div>
+        <div class="flex justify-between mb-4 text-body-sm">
+          <span>Estimated Shipping</span>
+          <span class="text-green-800 font-semibold uppercase text-xs">Complimentary Express</span>
+        </div>
+        
+        <!-- Promo Code Input -->
+        <div class="my-6 pt-4 border-t border-on-surface/10">
+          <div class="flex gap-2">
+            <input type="text" id="promo-input" placeholder="Promo code (Try SILENT10)" class="input-minimal text-xs uppercase"/>
+            <button onclick="applyPromo()" class="btn-outline py-2 px-4 text-xs">Apply</button>
+          </div>
+        </div>
+
+        <div class="flex justify-between my-6 pt-4 border-t border-on-surface/20 text-xl font-bold">
+          <span>Total</span>
+          <span id="bag-total">$1,450.00</span>
+        </div>
+
+        <button onclick="openCheckoutModal()" class="btn-primary w-full py-4 text-sm">
+          Proceed to Checkout →
+        </button>
+      </div>
+    </div>
+  </main>
+
+
+  <!-- ================= SLIDE-OVER CART DRAWER ================= -->
+  <div id="cart-backdrop" onclick="closeCartDrawer()" class="drawer-backdrop"></div>
+  <aside id="cart-drawer" class="slide-drawer">
+    <div class="p-6 border-b border-on-surface/10 flex justify-between items-center">
+      <h2 class="font-display text-xl font-bold uppercase">Your Bag (<span id="drawer-count">3</span>)</h2>
+      <button onclick="closeCartDrawer()" class="material-symbols-outlined text-2xl hover:opacity-70">close</button>
+    </div>
+    
+    <div id="drawer-items-list" class="flex-grow overflow-y-auto p-6 space-y-6 divide-y divide-on-surface/10">
+      <!-- Items dynamically populated by app.js -->
+    </div>
+
+    <div class="p-6 bg-surface-container-high border-t border-on-surface/10 space-y-4">
+      <div class="flex justify-between font-bold text-lg">
+        <span>Subtotal</span>
+        <span id="drawer-subtotal">$1,450.00</span>
+      </div>
+      <p class="text-[11px] text-secondary uppercase tracking-wider">Taxes & shipping calculated at checkout.</p>
+      <button onclick="closeCartDrawer(); openCheckoutModal();" class="btn-primary w-full py-4 text-xs tracking-widest">
+        Checkout →
+      </button>
+      <a href="#bag" onclick="closeCartDrawer(); navigateTo('bag'); return false;" class="block text-center text-caption underline text-secondary hover:text-on-surface">View Full Bag</a>
+    </div>
+  </aside>
+
+
+  <!-- ================= CHECKOUT MODAL ================= -->
+  <div id="checkout-backdrop" class="modal-backdrop">
+    <div class="modal-content max-w-4xl p-8 md:p-12 relative">
+      <button onclick="closeCheckoutModal()" class="absolute top-6 right-6 material-symbols-outlined text-2xl">close</button>
+      
+      <div id="checkout-form-step">
+        <h2 class="text-headline-md font-display uppercase mb-8 pb-4 border-b border-on-surface/10">Secure Checkout</h2>
+        
+        <form onsubmit="processOrder(event)" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="space-y-6">
+            <h3 class="text-nav-label font-bold text-secondary">1. Contact & Delivery</h3>
+            <input type="email" required placeholder="Email Address *" class="input-minimal"/>
+            <div class="grid grid-cols-2 gap-4">
+              <input type="text" required placeholder="First Name *" class="input-minimal"/>
+              <input type="text" required placeholder="Last Name *" class="input-minimal"/>
+            </div>
+            <input type="text" required placeholder="Street Address *" class="input-minimal"/>
+            <div class="grid grid-cols-2 gap-4">
+              <input type="text" required placeholder="City *" class="input-minimal"/>
+              <input type="text" required placeholder="Postal Code *" class="input-minimal"/>
+            </div>
+          </div>
+
+          <div class="space-y-6">
+            <h3 class="text-nav-label font-bold text-secondary">2. Payment Method</h3>
+            <div class="p-4 border border-on-surface/30 bg-surface">
+              <label class="flex items-center gap-3 cursor-pointer">
+                <input type="radio" name="pay" checked class="accent-on-surface"/>
+                <span class="text-body-sm font-semibold">Credit Card / Debit</span>
+              </label>
+            </div>
+            <input type="text" required placeholder="Card Number (0000 0000 0000 0000) *" class="input-minimal"/>
+            <div class="grid grid-cols-2 gap-4">
+              <input type="text" required placeholder="MM/YY *" class="input-minimal"/>
+              <input type="text" required placeholder="CVC *" class="input-minimal"/>
+            </div>
+            <button type="submit" class="btn-primary w-full py-4 text-sm mt-6">
+              Place Order — <span id="checkout-total-btn">$1,450.00</span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Success Screen (Hidden by default) -->
+      <div id="checkout-success-step" class="hidden text-center py-12">
+        <span class="material-symbols-outlined text-6xl text-green-800 mb-4 block">check_circle</span>
+        <h2 class="text-display-lg font-display uppercase mb-4">Order Confirmed</h2>
+        <p class="text-body-main text-secondary mb-2">Thank you for your order. Order number: <strong class="text-on-surface">#SE-892401</strong></p>
+        <p class="text-body-sm text-secondary mb-8">A confirmation email has been dispatched to your inbox.</p>
+        <button onclick="closeCheckoutModal(); navigateTo('home');" class="btn-primary py-3 px-8">Continue Shopping</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================= LIGHTBOX / JOURNAL MODAL ================= -->
+  <div id="general-modal" class="modal-backdrop">
+    <div class="modal-content p-8 md:p-12 relative max-w-3xl">
+      <button onclick="closeGeneralModal()" class="absolute top-6 right-6 material-symbols-outlined text-2xl">close</button>
+      <div id="modal-body-content"></div>
+    </div>
+  </div>
+
+
+  <!-- Persistent Dark Footer -->
+  <footer class="bg-primary text-surface py-20 px-6 md:px-12 border-t border-white/10">
+    <div class="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-12">
+      <!-- Sitemap -->
+      <div class="md:col-span-8 grid grid-cols-2 sm:grid-cols-4 gap-8">
+        <div>
+          <h4 class="text-nav-label text-white mb-4">SHOP</h4>
+          <ul class="space-y-2 text-caption text-gray-400">
+            <li><a href="#shop" onclick="navigateTo('shop'); return false;" class="hover:text-white">Outerwear</a></li>
+            <li><a href="#shop" onclick="navigateTo('shop'); return false;" class="hover:text-white">Knitwear</a></li>
+            <li><a href="#shop" onclick="navigateTo('shop'); return false;" class="hover:text-white">Tailoring</a></li>
+            <li><a href="#shop" onclick="navigateTo('shop'); return false;" class="hover:text-white">Accessories</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-nav-label text-white mb-4">COMPANY</h4>
+          <ul class="space-y-2 text-caption text-gray-400">
+            <li><a href="#about" onclick="navigateTo('about'); return false;" class="hover:text-white">Our Story</a></li>
+            <li><a href="#journal" onclick="navigateTo('journal'); return false;" class="hover:text-white">Journal</a></li>
+            <li><a href="#" onclick="openSizeGuide(); return false;" class="hover:text-white">Sustainability</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-nav-label text-white mb-4">HELP</h4>
+          <ul class="space-y-2 text-caption text-gray-400">
+            <li><a href="#" onclick="showToast('Customer Concierge Online'); return false;" class="hover:text-white">Concierge</a></li>
+            <li><a href="#" onclick="showToast('Shipping: 2-3 Business Days Express'); return false;" class="hover:text-white">Shipping & Returns</a></li>
+            <li><a href="#" onclick="openSizeGuide(); return false;" class="hover:text-white">Size Guide</a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- Brand Stamp -->
+      <div class="md:col-span-4 flex flex-col justify-between items-start md:items-end">
+        <span class="font-display text-4xl font-bold tracking-tighter text-white">ELEGANCE</span>
+        <p class="text-caption text-gray-500 mt-4">© 2026 ELEGANCE SILENT EDITORIAL. ALL RIGHTS RESERVED.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Application Engine JavaScript -->
+  <script src="app.js"></script>
+</body>
+</html>

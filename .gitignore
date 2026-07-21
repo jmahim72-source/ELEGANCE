@@ -1,0 +1,14 @@
+/*
+!/index.html
+!/style.css
+!/app.js
+!/README.md
+!/DESIGN.md
+!/stitch-clothing-brand-prompt.md
+!/.gitignore
+
+node_modules/
+.DS_Store
+*.zip
+*.lnk
+*.txt
